@@ -1,6 +1,6 @@
 # LinkJet.cc
 
-**Status:** ✅ Phase 1-5 Complete (25 Playwright tests, all passing) | 🔄 Phase 6: Git & GitHub
+**Status:** ✅ Phase 1-7 Complete | 🎉 Live at https://linkjet.cc
 
 ## Goal
 
@@ -85,14 +85,14 @@ LinkJet.cc/
 
 ## Deployment Checklist
 
-- [ ] VPS accessible
-- [ ] Node.js installed
-- [ ] App running
-- [ ] Domain configured
-- [ ] Reverse proxy (Nginx/Caddy)
-- [ ] SSL certificate
-- [ ] HTTPS validation
-- [ ] Screenshots captured
+- [x] VPS accessible (82.39.109.238, Ubuntu 24.04)
+- [x] Node.js installed (v20.20.2)
+- [x] App running (Next.js 16 on port 3000, systemd)
+- [x] Reverse proxy (Nginx 1.24.0)
+- [x] Domain DNS updated (A records → 82.39.109.238)
+- [x] SSL certificate (Let's Encrypt via certbot, auto-renewal)
+- [x] HTTPS validation
+- [x] Screenshots captured
 
 ## Known Issues
 
