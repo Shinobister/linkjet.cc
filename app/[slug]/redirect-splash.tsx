@@ -3,6 +3,51 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+const splashStyles = `
+@keyframes jet-spin {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(360deg); }
+  33%  { transform: rotate(360deg); }
+  42%  { transform: rotate(380deg); }
+  48%  { transform: rotate(340deg); }
+  50%  { transform: rotate(360deg); }
+  70%  { transform: rotate(720deg); }
+  83%  { transform: rotate(720deg); }
+  92%  { transform: rotate(740deg); }
+  96%  { transform: rotate(700deg); }
+  100% { transform: rotate(720deg); }
+}
+@-webkit-keyframes jet-spin {
+  0%   { -webkit-transform: rotate(0deg); }
+  20%  { -webkit-transform: rotate(360deg); }
+  33%  { -webkit-transform: rotate(360deg); }
+  42%  { -webkit-transform: rotate(380deg); }
+  48%  { -webkit-transform: rotate(340deg); }
+  50%  { -webkit-transform: rotate(360deg); }
+  70%  { -webkit-transform: rotate(720deg); }
+  83%  { -webkit-transform: rotate(720deg); }
+  92%  { -webkit-transform: rotate(740deg); }
+  96%  { -webkit-transform: rotate(700deg); }
+  100% { -webkit-transform: rotate(720deg); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.15); }
+}
+@-webkit-keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; -webkit-transform: scale(1); }
+  50%      { opacity: 0.6; -webkit-transform: scale(1.15); }
+}
+.splash-jet-spin {
+  animation: jet-spin 6s ease-in-out infinite;
+  -webkit-animation: jet-spin 6s ease-in-out infinite;
+}
+.splash-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+  -webkit-animation: glow-pulse 4s ease-in-out infinite;
+}
+`;
+
 export default function RedirectSplash({ originalUrl }: { originalUrl: string }) {
   const [secondsLeft, setSecondsLeft] = useState(3);
 
@@ -23,8 +68,11 @@ export default function RedirectSplash({ originalUrl }: { originalUrl: string })
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-bg px-4">
+      {/* Inline styles for Safari — CSS chunk may load too late on slow connections */}
+      <style>{splashStyles}</style>
+
       {/* Background glow */}
-      <div className="absolute h-72 w-72 rounded-full bg-accent/10 blur-[120px] animate-glow-pulse" />
+      <div className="absolute h-72 w-72 rounded-full bg-accent/10 blur-[120px] splash-glow-pulse" />
 
       <motion.div
         className="relative flex flex-col items-center gap-8"
@@ -33,7 +81,7 @@ export default function RedirectSplash({ originalUrl }: { originalUrl: string })
         transition={{ duration: 0.5 }}
       >
         {/* Jet spinner — spin, pause, waver, spin, pause, waver */}
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-card animate-jet-spin">
+        <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-card splash-jet-spin">
           <svg
             width="40"
             height="40"
