@@ -47,3 +47,33 @@ body {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Jet spinner keyframes — spin, pause, waver, spin, pause, waver */
+@keyframes jet-spin {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(360deg); }
+  33%  { transform: rotate(360deg); }
+  42%  { transform: rotate(380deg); }
+  48%  { transform: rotate(340deg); }
+  50%  { transform: rotate(360deg); }
+  70%  { transform: rotate(720deg); }
+  83%  { transform: rotate(720deg); }
+  92%  { transform: rotate(740deg); }
+  96%  { transform: rotate(700deg); }
+  100% { transform: rotate(720deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.15); }
+}
+
+.animate-jet-spin {
+  animation: jet-spin 6s ease-in-out infinite;
+  -webkit-animation: jet-spin 6s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+  -webkit-animation: glow-pulse 4s ease-in-out infinite;
+}

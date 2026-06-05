@@ -38,10 +38,59 @@ test("short link shows splash page then redirects", async ({ page }) => {
 
   // Wait for redirect to Wikipedia
   console.log("Waiting for redirect...");
-  await page.waitForURL("**/wikipedia.org/**", { timeout: 15000 });
+  await page.waitForURL(/wikipedia\.org/, { timeout: 25000 });
   console.log("Redirected to Wikipedia");
 
   // Verify we landed on the Wikipedia page
-  await expect(page).toHaveTitle(/URL shortening/);
+  await expect(page.locator("h1")).toContainText("URL shortening", { timeout: 10000 });
   console.log("Wikipedia page loaded successfully");
+});
+
+test("mobile: short link shows splash page then redirects", async ({ page }) => {
+  // Set mobile viewport
+  await page.setViewportSize({ width: 375, height: 812 });
+
+  // Go to homepage and create a short link
+  await page.goto("https://linkjet.cc/");
+  await page.waitForLoadState("networkidle");
+
+  // Fill in a URL
+  await page.fill("#link-input", "https://en.wikipedia.org/wiki/URL_shortening");
+  await page.click("text=Shorten");
+  await page.waitForTimeout(500);
+
+  // Get the generated slug
+  const slugInput = page.locator("input[type=text]");
+  const slug = await slugInput.inputValue();
+
+  // Create the link
+  await page.click("text=Create link");
+  await page.waitForTimeout(1000);
+
+  // Navigate to the short link
+  const shortUrl = `https://linkjet.cc/${slug}`;
+  await page.goto(shortUrl);
+  await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(1000);
+
+  // Verify splash page is showing on mobile
+  await expect(page.locator("h1")).toContainText("LinkJet");
+  console.log("Mobile: LinkJet.cc text visible");
+
+  await expect(page.locator("text=Loading your page")).toBeVisible();
+  console.log("Mobile: 'Loading your page' visible");
+
+  // Verify the spinning jet icon
+  const jetIcon = page.locator("svg.text-accent");
+  await expect(jetIcon).toBeVisible();
+  console.log("Mobile: spinning jet visible");
+
+  // Wait for redirect to Wikipedia
+  console.log("Mobile: waiting for redirect...");
+  await page.waitForURL(/wikipedia\.org/, { timeout: 25000 });
+  console.log("Mobile: redirected to Wikipedia");
+
+  // Verify we landed on the Wikipedia page
+  await expect(page.locator("h1")).toContainText("URL shortening", { timeout: 10000 });
+  console.log("Mobile: Wikipedia page loaded successfully");
 });
