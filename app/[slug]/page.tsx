@@ -1,6 +1,6 @@
 import { getLinkBySlug } from "@/lib/storage";
 import { notFound } from "next/navigation";
-import FramePageClient from "./frame-page-client";
+import RedirectSplash from "./redirect-splash";
 
 export default async function SlugPage({
   params,
@@ -14,5 +14,5 @@ export default async function SlugPage({
     notFound();
   }
 
-  return <FramePageClient originalUrl={link.originalUrl} slug={slug} />;
+  return <RedirectSplash originalUrl={link.originalUrl} />;
 }

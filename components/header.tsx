@@ -11,83 +11,8 @@ const navLinks = [
   { label: "FAQ", href: "#" },
 ];
 
-export default function Header({
-  slug,
-  originalUrl,
-}: {
-  slug?: string;
-  originalUrl?: string;
-} = {}) {
+export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Framed redirect variant — show slug/URL info in the header bar
-  if (slug && originalUrl) {
-    return (
-      <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-xl"
-      >
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-2.5 sm:px-6">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent/10">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-accent"
-              >
-                <path d="M12 2v20" />
-                <path d="M2 12h20" />
-                <path d="m6 8 4 4-4 4" />
-                <path d="m18 8-4 4 4 4" />
-              </svg>
-            </div>
-            <span className="text-base font-bold tracking-tight text-text">
-              Link<span className="text-accent">Jet</span>
-            </span>
-          </Link>
-
-          {/* Slug + URL info — hidden on very narrow screens */}
-          <div className="hidden min-w-0 items-center gap-1.5 truncate px-2 text-xs sm:flex">
-            <span className="shrink-0 font-medium text-text">linkjet.cc/{slug}</span>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0 text-border"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-            <span className="truncate text-muted">{originalUrl}</span>
-          </div>
-
-          {/* Open in new tab */}
-          <a
-            href={originalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 text-accent hover:text-accent-hover transition-colors text-xs font-medium"
-          >
-            Open in new tab
-          </a>
-        </div>
-      </motion.header>
-    );
-  }
 
   return (
     <motion.header
