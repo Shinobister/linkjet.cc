@@ -90,6 +90,21 @@ export default function LinkForm() {
     setShortUrl(url);
     addItem({ shortUrl: url, slug: finalSlug, originalUrl: longUrl.trim() });
     setStep("result");
+
+    // Persist to server so the short link resolves for others
+    fetch("/api/links", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        shortUrl: url,
+        slug: finalSlug,
+        originalUrl: longUrl.trim(),
+        id: crypto.randomUUID(),
+        createdAt: Date.now(),
+      }),
+    }).catch(() => {
+      /* server unavailable — link still works locally */
+    });
   }, [slug, longUrl, addItem, hasSlug]);
 
   // Step 3: Copy to clipboard
